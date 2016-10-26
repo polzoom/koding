@@ -621,7 +621,7 @@ class IDEAppController extends AppController
     @getView().addSubView @noStackFoundView = new NoStackFoundView
 
 
-  mountMachineByMachineUId: (machineUId) ->
+  mountMachineByMachineUId: (machineUId, done = kd.noop) ->
 
     return  if @mountedMachine
 
@@ -629,7 +629,7 @@ class IDEAppController extends AppController
     container         = @getView()
     withFakeViews     = no
 
-    environmentDataProvider.fetchMachineByUId machineUId, (machineItem) =>
+    mount = (machineItem) =>
 
       unless machineItem
         return @showNoMachineState()
@@ -677,6 +677,10 @@ class IDEAppController extends AppController
 
       else
         return @showNoMachineState()
+
+    environmentDataProvider.fetchMachineByUId machineUId, (machineItem) ->
+      mount machineItem
+      done()
 
 
   bindMachineEvents: (machineItem) ->
