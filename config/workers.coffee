@@ -229,61 +229,12 @@ module.exports = (KONFIG, options, credentials) ->
           run           : "#{GOBIN}/algoliaconnector"
           watch         : "#{GOBIN}/watcher -run socialapi/workers/cmd/algoliaconnector -watch socialapi/workers/algoliaconnector"
 
-    notification        :
-      group             : "socialapi"
-      supervisord       :
-        command         :
-          run           : "#{GOBIN}/notification"
-          watch         : "#{GOBIN}/watcher -run socialapi/workers/cmd/notification -watch socialapi/workers/notification"
-
-    pinnedpost          :
-      group             : "socialapi"
-      supervisord       :
-        command         :
-          run           : "#{GOBIN}/pinnedpost"
-          watch         : "#{GOBIN}/watcher -run socialapi/workers/cmd/pinnedpost -watch socialapi/workers/pinnedpost"
-
     realtime            :
       group             : "socialapi"
       supervisord       :
         command         :
           run           : "#{GOBIN}/realtime"
           watch         : "#{GOBIN}/watcher -run socialapi/workers/cmd/realtime -watch socialapi/workers/realtime"
-
-    sitemapfeeder       :
-      group             : "socialapi"
-      supervisord       :
-        command         :
-          run           : "#{GOBIN}/sitemapfeeder"
-          watch         : "#{GOBIN}/watcher -run socialapi/workers/cmd/sitemapfeeder -watch socialapi/workers/sitemapfeeder"
-
-    sitemapgenerator    :
-      group             : "socialapi"
-      supervisord       :
-        command         :
-          run           : "#{GOBIN}/sitemapgenerator"
-          watch         : "#{GOBIN}/watcher -run socialapi/workers/cmd/sitemapgenerator -watch socialapi/workers/sitemapgenerator"
-
-    activityemail       :
-      group             : "socialapi"
-      supervisord       :
-        command         :
-          run           : "#{GOBIN}/activityemail"
-          watch         : "#{GOBIN}/watcher -run socialapi/workers/cmd/email/activityemail -watch socialapi/workers/email/activityemail"
-
-    privatemessageemailfeeder:
-      group             : "socialapi"
-      supervisord       :
-        command         :
-          run           : "#{GOBIN}/privatemessageemailfeeder"
-          watch         : "#{GOBIN}/watcher -run socialapi/workers/cmd/email/privatemessageemailfeeder -watch socialapi/workers/email/privatemessageemailfeeder"
-
-    privatemessageemailsender:
-      group             : "socialapi"
-      supervisord       :
-        command         :
-          run           : "#{GOBIN}/privatemessageemailsender"
-          watch         : "#{GOBIN}/watcher -run socialapi/workers/cmd/email/privatemessageemailsender -watch socialapi/workers/email/privatemessageemailsender"
 
     presence            :
       group             : "socialapi"
@@ -360,38 +311,6 @@ module.exports = (KONFIG, options, credentials) ->
         locations       : [
           location      : "~ /-/ingestor/(.*)"
           proxyPass     : "http://gatheringestor/$1$is_args$args"
-        ]
-
-    integration         :
-      group             : "socialapi"
-      ports             :
-        incoming        : "#{KONFIG.integration.port}"
-      supervisord       :
-        command         :
-          run           : "#{GOBIN}/webhook"
-          watch         : "make -C %(ENV_KONFIG_PROJECTROOT)s/go/src/socialapi webhookdev"
-      healthCheckURL    : "#{options.customDomain.local}/api/integration/healthCheck"
-      versionURL        : "#{options.customDomain.local}/api/integration/version"
-      nginx             :
-        locations       : [
-          location      : "~ /api/integration/(.*)"
-          proxyPass     : "http://integration/$1$is_args$args"
-        ]
-
-    webhook             :
-      group             : "socialapi"
-      ports             :
-        incoming        : "#{KONFIG.socialapi.webhookMiddleware.port}"
-      supervisord       :
-        command         :
-          run           : "#{GOBIN}/webhookmiddleware"
-          watch         : "make -C %(ENV_KONFIG_PROJECTROOT)s/go/src/socialapi middlewaredev"
-      healthCheckURL    : "#{options.customDomain.local}/api/webhook/healthCheck"
-      versionURL        : "#{options.customDomain.local}/api/webhook/version"
-      nginx             :
-        locations       : [
-          location      : "~ /api/webhook/(.*)"
-          proxyPass     : "http://webhook/$1$is_args$args"
         ]
 
     eventsender         :
