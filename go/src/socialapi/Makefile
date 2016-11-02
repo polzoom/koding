@@ -62,22 +62,6 @@ build:
 	@echo "building with ../../build.sh"
 	../../build.sh
 
-testwebhook:
-	@echo "$(OK_COLOR)--> webhook model tests... $(NO_COLOR)"
-	@`which go` test -c workers/integration/webhook/*.go
-	@./webhook.test $(DBG) $(EXTRAS) -c $(CONFIG)
-	@rm  ./webhook.test
-
-	@echo "$(OK_COLOR)--> webhook api tests... $(NO_COLOR)"
-	@`which go` test -c workers/integration/webhook/api/*.go
-	@./api.test $(DBG) $(EXTRAS) -c $(CONFIG)
-	@rm  ./api.test
-
-	@echo "$(OK_COLOR)--> webhook integration tests... $(NO_COLOR)"
-	@`which go` test -c workers/integration/webhook/tests/*.go
-	@./tests.test $(DBG) $(EXTRAS) -c $(CONFIG)
-	@rm ./tests.test
-
 testpresence:
 	@echo "$(OK_COLOR)--> presence tests... $(NO_COLOR)"
 	@`which go` test -race -c workers/presence/*.go
@@ -207,7 +191,7 @@ testrealtime:
 
 testapi: testcollaboration testmailsender testmail testmodels testemailworker \
 	testnotification \
-	testteam testintegration testrealtime testwebhook testpresence
+	testteam testintegration testrealtime testpresence
 
 	@echo "$(OK_COLOR)==> Running Unit tests $(NO_COLOR)"
 
