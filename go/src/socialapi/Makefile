@@ -35,7 +35,6 @@ PACKAGES = \
 	socialapi/workers/notification \
 	socialapi/workers/realtime \
 	socialapi/workers/migrator \
-	socialapi/workers/integration \
 	socialapi/workers/algoliaconnector
 
 
@@ -107,6 +106,12 @@ testteamintegration:
 
 testalgolia:
 	@echo "$(OK_COLOR)--> algoliaconnector unit tests... $(NO_COLOR)"
+testeventsender:
+	@echo "$(OK_COLOR)--> eventsender tests... $(NO_COLOR)"
+	@`which go` test -c workers/integration/eventsender/*.go
+	@./eventsender.test $(DBG) $(EXTRAS) -c $(CONFIG)
+	@rm  ./eventsender.test
+
 	@`which go` test -c workers/algoliaconnector/algoliaconnector/*.go
 	@./algoliaconnector.test $(DBG) $(EXTRAS) -c $(CONFIG)
 	@rm ./algoliaconnector.test
