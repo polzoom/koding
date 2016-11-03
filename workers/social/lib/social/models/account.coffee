@@ -178,29 +178,7 @@ module.exports = class JAccount extends jraphical.Module
 
 
     schema                  :
-      shareLocation         : Boolean
       socialApiId           : String
-      skillTags             : [String]
-      locationTags          : [String]
-      systemInfo            :
-        defaultToLastUsedEnvironment :
-          type              : Boolean
-          default           : yes
-      # counts                : Followable.schema.counts
-      counts                :
-        followers           :
-          type              : Number
-          default           : 0
-        following           :
-          type              : Number
-          default           : 0
-        topics              :
-          type              : Number
-          default           : 0
-        likes               :
-          type              : Number
-          default           : 0
-
       environmentIsCreated  : Boolean
       type                  :
         type                : String
@@ -211,13 +189,11 @@ module.exports = class JAccount extends jraphical.Module
                               ]]
         default             : 'unregistered'
       profile               :
-        about               : String
         nickname            :
           type              : String
           validate          : require('./name').validateName
           set               : (value) -> value.toLowerCase()
         hash                : String
-        ircNickname         : String
         firstName           :
           type              : String
           required          : yes
@@ -227,26 +203,15 @@ module.exports = class JAccount extends jraphical.Module
           type              : String
           default           : 'user'
           validate          : validateFullName
-        description         : String
         avatar              : String
-        status              : String
-        experience          : String
-        experiencePoints    :
-          type              : Number
-          default           : 0
-        lastStatusUpdate    : String
       referrerUsername      : String
       referralUsed          : Boolean
-      preferredKDProxyDomain: String
       isExempt              : # is a troll ?
         type                : Boolean
         default             : false
       globalFlags           : [String]
       meta                  : require 'bongo/bundles/meta'
-      onlineStatus          :
-        type                : String
-        enum                : ['invalid status', ['online', 'offline', 'away', 'busy']]
-        default             : 'online'
+
     broadcastableRelationships : [ 'follower' ]
 
 
