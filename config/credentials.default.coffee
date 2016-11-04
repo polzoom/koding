@@ -159,9 +159,6 @@ module.exports = (options) ->
   recaptcha =
     secret: ''
     public: ''
-  janitor =
-    port: '6700'
-    secretKey: ''
   vmwatcher =
     secretKey: ''
   segment = ''
@@ -172,7 +169,6 @@ module.exports = (options) ->
     publicKey: kontrol.publicKey
     privateKey: kontrol.privateKey
     secretKey: ''
-    janitorSecretKey: janitor.secretKey
     vmwatcherSecretKey: vmwatcher.secretKey
     terraformerSecretKey: terraformer.secretKey
     userPublicKey: "$KONFIG_PROJECTROOT/generated/private_keys/kloud/kloud.pub"
@@ -216,7 +212,6 @@ module.exports = (options) ->
     sneakerS3
     stripe
     recaptcha
-    janitor
     segment
     kontrol
     kloud

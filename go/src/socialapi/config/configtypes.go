@@ -51,8 +51,6 @@ type (
 
 		DisabledFeatures DisabledFeatures
 
-		Janitor Janitor
-
 		Github Github
 
 		Slack Slack
@@ -152,11 +150,6 @@ type (
 
 	DisabledFeatures struct {
 		BotChannel bool
-	}
-
-	Janitor struct {
-		Port      string `env:"key=KONFIG_SOCIALAPI_JANITOR_PORT"`
-		SecretKey string `env:"key=KONFIG_SOCIALAPI_JANITOR_SECRETKEY"`
 	}
 
 	Github struct {
