@@ -229,6 +229,14 @@ module.exports = (KONFIG, options, credentials) ->
           run           : "#{GOBIN}/algoliaconnector"
           watch         : "#{GOBIN}/watcher -run socialapi/workers/cmd/algoliaconnector -watch socialapi/workers/algoliaconnector"
 
+    notification        :
+       group             : "socialapi"
+       supervisord       :
+         command         :
+           run           : "#{GOBIN}/notification"
+           watch         : "#{GOBIN}/watcher -run socialapi/workers/cmd/notification -watch socialapi/workers/notification"
+
+
     realtime            :
       group             : "socialapi"
       supervisord       :
